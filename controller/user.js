@@ -26,16 +26,20 @@ exports.postAppointConsult = (req, res, next) => {
         const newObj = { consultantId: cid, date: date };
         existingConsultations.push(newObj);
         user.consultationsWith = existingConsultations;
-        user.save().then(() => {
-           client.messages.create({
-            body:`Hi Vishnu Teja Your appointment has been booked successfully on ${format(date,'MMMM dd, yyyy')}. Your Consultant ID is ${cid}`,
-            from:'+12569077884',
-            to:'+919494170404'
-          }).then(()=>{
+        user.save().then(()=>{
             console.log("Message Sent")
             res.json({ message: "Booked!" });
-          })
-        });
+          });
+        // user.save().then(() => {
+        //    client.messages.create({
+        //     body:`Hi Vishnu Teja Your appointment has been booked successfully on ${format(date,'MMMM dd, yyyy')}. Your Consultant ID is ${cid}`,
+        //     from:'+12569077884',
+        //     to:'+919494170404'
+        //   }).then(()=>{
+        //     console.log("Message Sent")
+        //     res.json({ message: "Booked!" });
+        //   })
+        // });
       })
       .catch((err) => console.log(err));
   } else {
